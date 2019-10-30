@@ -16,7 +16,7 @@ class Node {
     }
 }
 
-class BST {
+class Rextester {
     /*
      * public Node createNode(int val) { Node node=new Node(); node.data=val;
      * node.left=null; node.right=null; return node; }
@@ -93,8 +93,30 @@ class BST {
         System.out.print(node.data + " ");
     }
 
+    public void search(Node node, int val) {
+        boolean ispresent = false;
+        if (node == null) {
+            System.out.println("tree is empty");
+        }
+        while (node != null) {
+            if (val < node.data) {
+                node = node.left;
+            } else if (val > node.data) {
+                node = node.right;
+            } else {
+                ispresent = true;
+                break;
+            }
+        }
+        if (ispresent) {
+            System.out.println(" found element");
+        } else {
+            System.out.println("not found element");
+        }
+    }
+
     public static void main(String args[]) {
-        BST res = new BST();
+        Rextester res = new Rextester();
         Node root = null;
         root = res.insert(root, 8);
         root = res.insert(root, 3);
@@ -103,12 +125,11 @@ class BST {
         root = res.insert(root, 20);
         root = res.insert(root, 7);
         root = res.insert(root, 1);
-        // root=res.delete(root,8);
         res.inorder(root);
         System.out.println();
         res.preorder(root);
         System.out.println();
         res.postorder(root);
-        // System.out.println(root.data+" "+root.left.data);
+        res.search(root, 20);
     }
 }
