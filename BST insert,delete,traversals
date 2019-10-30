@@ -16,7 +16,7 @@ class Node {
     }
 }
 
-class Rextester {
+class BST {
     /*
      * public Node createNode(int val) { Node node=new Node(); node.data=val;
      * node.left=null; node.right=null; return node; }
@@ -94,7 +94,7 @@ class Rextester {
     }
 
     public static void main(String args[]) {
-        Rextester res = new Rextester();
+        BST res = new BST();
         Node root = null;
         root = res.insert(root, 8);
         root = res.insert(root, 3);
