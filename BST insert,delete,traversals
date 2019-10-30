@@ -1,0 +1,114 @@
+//'main' method must be in a class 'Rextester'.
+//Compiler version 1.8.0_111
+
+import java.util.*;
+import java.lang.*;
+
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    public Node(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class Rextester {
+    /*
+     * public Node createNode(int val) { Node node=new Node(); node.data=val;
+     * node.left=null; node.right=null; return node; }
+     */
+    public Node insert(Node node, int val) {
+        if (node == null) {
+            Node a = new Node(val);
+            return a;
+        }
+        if (val < node.data) {
+            node.left = insert(node.left, val);
+        } else if (val > node.data) {
+            node.right = insert(node.right, val);
+        }
+        return node;
+    }
+
+    public Node delete(Node node, int val) {
+        if (node == null) {
+            return null;
+        }
+        if (val < node.data) {
+            node.left = delete(node.left, val);
+        }
+        if (val > node.data) {
+            node.right = delete(node.right, val);
+        }
+        if (node.left != null && node.right != null) {
+            Node temp = node;
+            Node minval = minvalright(temp.right);
+            node.data = minval.data;
+            delete(node.right, minval.data);
+        } else if (node.left != null) {
+            node = node.left;
+        } else if (node.right != null) {
+            node = node.right;
+        } else {
+            node = null;
+        }
+        return node;
+    }
+
+    public Node minvalright(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return minvalright(node.left);
+    }
+
+    public void inorder(Node node) {
+        if (node == null) {
+            return;
+        }
+        inorder(node.left);
+        System.out.print(node.data + " ");
+        inorder(node.right);
+    }
+
+    public void preorder(Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.print(node.data + " ");
+        preorder(node.left);
+        preorder(node.right);
+    }
+
+    public void postorder(Node node) {
+        if (node == null) {
+            return;
+        }
+        postorder(node.left);
+        postorder(node.right);
+        System.out.print(node.data + " ");
+    }
+
+    public static void main(String args[]) {
+        Rextester res = new Rextester();
+        Node root = null;
+        root = res.insert(root, 8);
+        root = res.insert(root, 3);
+        root = res.insert(root, 10);
+        root = res.insert(root, 10);
+        root = res.insert(root, 20);
+        root = res.insert(root, 7);
+        root = res.insert(root, 1);
+        // root=res.delete(root,8);
+        res.inorder(root);
+        System.out.println();
+        res.preorder(root);
+        System.out.println();
+        res.postorder(root);
+        // System.out.println(root.data+" "+root.left.data);
+    }
+}
