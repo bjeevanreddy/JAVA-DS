@@ -28,6 +28,37 @@ namespace dslinkd
             head = newhead;
             //return;
         }
+        public int searchnode(int x)
+        {
+            int pos = 0;
+            Node temp = head;
+            while(temp!=null)
+            {
+                pos++;
+                temp = temp.next;
+                if(temp.data==x)
+                {
+                    return pos;
+                }
+               
+            }
+            return pos;
+        }
+        public int length()
+        {
+            int len = 0;
+            if(head==null)
+            {
+                return len;
+            }
+            Node temp = head;
+            while(temp!=null)
+            {
+                len++;
+                temp = temp.next;
+            }
+            return len;
+        }
         public void append(int x)
         {
             if(head==null)
@@ -79,6 +110,26 @@ namespace dslinkd
                 temp = temp.next;
             }
             temp.next = null;
+        }
+       public void reverselist()
+        {
+            Node temp = head;
+            Node nextnode = null;
+            Node prev = null;
+            if(head==null)
+            {
+                return;
+            }
+            while(temp!=null)
+            {
+                nextnode = temp.next;
+                temp.next = prev;
+                prev = temp;
+                temp = nextnode;
+
+            }
+            head = prev;
+            
         }
         public void insertatposition(int p,int data)
         {
@@ -157,6 +208,7 @@ namespace dslinkd
             p.push(30);
             p.push(0);
             p.push(90);
+            p.append(45);
             p.push(25);
             
             p.printlist();
@@ -173,6 +225,11 @@ namespace dslinkd
             p.removeatposition(2);
             p.printlist();
             p.insertatposition(2, 3);
+            p.printlist();
+            Console.WriteLine("The Length of linkedlist is :" + p.length());
+            Console.WriteLine("The element was found at position :" + p.searchnode(3));
+
+            p.reverselist();
             p.printlist();
             Console.ReadLine();
         }
