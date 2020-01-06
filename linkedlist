@@ -1,0 +1,180 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace dslinkd
+{
+    class Program
+    {
+        public class Node
+        {
+            public int data;
+            public Node next;
+            public Node(int data)
+            {
+                this.data = data;
+                this.next = null;
+            }
+        }
+        public Node head;
+
+        public void push(int x)
+        {
+            
+            Node newhead = new Node(x);
+            newhead.next = head;
+            head = newhead;
+            //return;
+        }
+        public void append(int x)
+        {
+            if(head==null)
+            {
+                head = new Node(x);
+                return;
+            }
+            Node newnode = new Node(x);
+            Node temp = head;
+            while(temp.next!=null)
+            {
+                temp = temp.next;
+            }
+            temp.next = newnode;
+            return;
+        }
+        public void insertafter(Node d,int x)
+        {
+            //if(head==null)
+            //{
+                
+            //    return;
+            //}
+            Node temp = head;
+           
+            if(d==null && head==null)
+            {
+                head = new Node(x);
+                Console.Write("Sorry");
+                return;
+            }
+            Node newnode = new Node(x);
+            newnode.next = d.next;
+            d.next = newnode;
+            return;
+
+        }
+        public void removeend()
+        {
+            if(head.next==null)
+            {
+                Console.Write("Nothing to delete");
+                head = null;
+                return;
+            }
+            Node temp=head;
+            while(temp.next.next!=null)
+            {
+                temp = temp.next;
+            }
+            temp.next = null;
+        }
+        public void insertatposition(int p,int data)
+        {
+            Node newnode = new Node(data);
+            if(head==null)
+            {
+                return;
+            }
+            int count = 0;
+            Node temp = head;
+            while(temp!=null)
+            {
+                temp = temp.next;
+                count++;
+                if(count==(p-1))
+                {
+                    newnode.next = temp.next;
+                    temp.next = newnode;
+                    
+                }
+            }
+            return;
+        }
+        public void removeatposition(int p)
+        {
+            int count = 0;
+            if (head == null)
+            {
+                return;
+            }
+            Node tempnode = head;
+            while (tempnode!= null)
+            {
+                tempnode = tempnode.next;
+                count++;
+                if(count==(p-1))
+                {
+                    tempnode.next = tempnode.next.next;
+                    //newnode.next = tempnode.next;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            return;
+        }
+        public void removefirst()
+        {
+            if(head==null)
+            {
+                Console.Write("Nothing to delete");
+                return;
+            }
+            Node currenthead = head.next;
+            head = currenthead;
+            //head = null;
+        }
+        public void printlist()
+        {
+            Node node = head;
+            while (node != null)
+            {
+                Console.Write(node.data+" ");
+                node = node.next;
+            }
+            //return;
+            Console.WriteLine();
+        }
+        static void Main(string[] args)
+        {
+            Program p = new Program();
+
+            p.push(40);
+            p.push(20);
+            p.push(30);
+            p.push(0);
+            p.push(90);
+            p.push(25);
+            
+            p.printlist();
+            Console.WriteLine("appeneded 100");
+            p.append(100);//x
+            p.append(1391);
+            p.printlist();
+            
+            p.insertafter(p.head.next, 4);//will insert after 30 
+           Console.WriteLine("inserting after 40");
+            p.printlist();
+            p.removefirst();
+            p.printlist();
+            p.removeatposition(2);
+            p.printlist();
+            p.insertatposition(2, 3);
+            p.printlist();
+            Console.ReadLine();
+        }
+    }
+}
